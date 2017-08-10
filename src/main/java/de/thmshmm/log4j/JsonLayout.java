@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Layout;
 import org.apache.log4j.spi.LoggingEvent;
-import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,7 +23,8 @@ public class JsonLayout extends Layout {
         this.dateFormat = new SimpleDateFormat(DEFAULT_DATE_FORMAT_PATTERN);
     }
 
-    public void activateOptions() { }
+    public void activateOptions() {
+    }
 
     public boolean ignoresThrowable() {
         return true;
@@ -35,11 +35,11 @@ public class JsonLayout extends Layout {
         Date timestamp = new Date(loggingEvent.getTimeStamp());
 
         LogItem li = new LogItem(
-            this.dateFormat.format(timestamp),
-            loggingEvent.getLevel().toString(),
-            loggingEvent.getLoggerName(),
-            loggingEvent.getThreadName(),
-            loggingEvent.getMessage().toString()
+                this.dateFormat.format(timestamp),
+                loggingEvent.getLevel().toString(),
+                loggingEvent.getLoggerName(),
+                loggingEvent.getThreadName(),
+                loggingEvent.getMessage().toString()
         );
 
         String out;
