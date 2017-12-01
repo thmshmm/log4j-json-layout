@@ -1,5 +1,6 @@
 package de.thmshmm.log4j;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Layout;
@@ -20,6 +21,7 @@ public class JsonLayout extends Layout {
 
     public JsonLayout() {
         this.om = new ObjectMapper();
+        this.om.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         this.dateFormat = new SimpleDateFormat(DEFAULT_DATE_FORMAT_PATTERN);
     }
 
@@ -27,19 +29,26 @@ public class JsonLayout extends Layout {
     }
 
     public boolean ignoresThrowable() {
-        return true;
+        return false;
     }
 
     @Override
     public String format(LoggingEvent loggingEvent) {
         Date timestamp = new Date(loggingEvent.getTimeStamp());
 
+        String stacktrace = null;
+
+        if (loggingEvent.getThrowableStrRep() != null) {
+            stacktrace = String.join("\n", loggingEvent.getThrowableStrRep());
+        }
+
         LogItem li = new LogItem(
-                this.dateFormat.format(timestamp),
-                loggingEvent.getLevel().toString(),
-                loggingEvent.getLoggerName(),
-                loggingEvent.getThreadName(),
-                loggingEvent.getMessage().toString()
+            this.dateFormat.format(timestamp),
+            loggingEvent.getLevel().toString(),
+            loggingEvent.getLoggerName(),
+            loggingEvent.getThreadName(),
+            loggingEvent.getMessage().toString(),
+            stacktrace
         );
 
         String out;

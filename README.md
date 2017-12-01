@@ -3,8 +3,9 @@ A JSON layout for Log4J (v1.2).
 
 ## Output format
 ```
-{"timestamp":"<DATE>","level":"<LEVEL>","logger":"<LOGGER>","thread":"<THREAD>","message":"<MESSAGE>"}
+{"timestamp":"<DATE>","level":"<LEVEL>","logger":"<LOGGER>","thread":"<THREAD>","message":"<MESSAGE>","stacktrace":"<STACKTRACE>"}
 ```
+The "stacktrace" item is optional and will only be in the JSON object if the log message has a trace message.
 
 ## Build the project
 ```

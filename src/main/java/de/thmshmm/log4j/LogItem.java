@@ -9,13 +9,15 @@ public class LogItem {
     private final String logger;
     private final String thread;
     private final String message;
+    private final String stacktrace;
 
-    public LogItem(String timestamp, String level, String logger, String thread, String message) {
+    public LogItem(String timestamp, String level, String logger, String thread, String message, String stacktrace) {
         this.timestamp = timestamp;
         this.level = level;
         this.logger = logger;
         this.thread = thread;
         this.message = message;
+        this.stacktrace = stacktrace;
     }
 
     public String getTimestamp() {
@@ -36,5 +38,9 @@ public class LogItem {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getStacktrace() {
+        return stacktrace;
     }
 }
